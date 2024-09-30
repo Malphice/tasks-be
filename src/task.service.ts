@@ -71,9 +71,15 @@ export class TaskService {
       {
         $search: {
           index: 'default',
-          text: {
+          autocomplete: {
+            path: 'title',
             query: query,
-            path: { wildcard: '*' },
+            tokenOrder: 'any',
+            fuzzy: {
+              maxEdits: 1,
+              prefixLength: 1,
+              maxExpansions: 256,
+            },
           },
         },
       },
